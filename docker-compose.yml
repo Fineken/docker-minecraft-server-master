@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  minecraft-server:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft-server
+    ports:
+      - "25565:25565"   # Основной порт сервера
+      - "25575:25575"   # Порт RCON (если требуется)
+    environment:
+      EULA: "TRUE"  # Принятие лицензионного соглашения
+      VERSION: "1.20.1"  # Версия Minecraft
+      MOTD: |
+        Добро пожаловать на мой Minecraft сервер!
+        Наслаждайтесь игрой :)
+      ONLINE_MODE: "false"  # Отключение авторизации (офлайн-режим)
+      WHITE_LIST: "false"    # Отключение белого списка
+      # Добавьте другие необходимые переменные окружения здесь
+    volumes:
+      - C:/Users/Danil/Downloads/docker-minecraft-server-master/docker-minecraft-server-master/files/server.properties:/data/server.properties:rw
+      - minecraft_data:/data  # Именованный том для персистентного хранения данных
+    restart: unless-stopped
+
+volumes:
+  minecraft_data:
